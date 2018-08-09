@@ -1,0 +1,51 @@
+#app-container {
+  display: flex;
+  justify-content: center;
+}
+
+.wi {
+  font-size: 23px;
+}
+
+.temperature-display {
+  display: flex;
+  justify-content: center;
+}
+
+.weather-container {
+  padding: 10%;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #f8f8f8;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #fff;
+}
+
+.card-body {
+  padding: 15px 5px 0px 10px;
+}
+
+#form-icon {
+  height: 20px;
+}
+
+#temp-icon {
+  position: relative;
+  top: 4px;
+}
+
+@media screen and (max-width: 500px) {
+  #form-icon {
+    height: 10px;
+  }
+
+  #temp-icon {
+  position: relative;
+  top: 3px;
+  }
+}

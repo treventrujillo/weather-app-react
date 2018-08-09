@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import Weather from './Weather'
+
+import './assets/css/weather-icons.css'
+import './assets/css/App.css'
 
 class App extends Component {
   render() {
     return (
-      <div id="app">
-        Hello
+      <div id="container" id="app-container">
+        <Weather />
       </div>
     );
   }
