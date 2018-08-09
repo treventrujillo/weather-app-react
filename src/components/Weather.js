@@ -57,9 +57,7 @@ class Weather extends Component {
     } else {
       return (
         <div className="weather-container">
-        {this.state.cardArray.map(card => {
-          return card
-        })}
+          {this.state.cardArray.map(card => { return card })}
         </div>
       )
     }
