@@ -12,35 +12,37 @@ class Weather extends Component {
     cardArray: []
   }
 
-  componentDidMount () {
-  //  this.mapCards()
+  componentDidMount() {
+    this.mapForecasts()
   }
 
-  mapCards() {
+  mapForecasts() {
     const { forecasts } = this.state
-    const tempArray = []
-    forecasts.map(forecast => {
-       tempArray.push(<Card key={forecast.id} forecast={forecast} />)
-    })
-    this.mapForecasts(tempArray)
-  }
-
-  mapForecasts = (cardDataArray) => {
-    const { stateLoaded } = this.state
-
-    cardDataArray.forEach(card => {
-      const weather = this.getForecast(card.forecast) 
+    forecasts.map(async (forecast) => {
+      await this.getForecast(forecast, this.cardArrayLoaded)
     })
   }
 
-  getForecast = (forecast) => {
-    axios.get(`${config.apiLink}${forecast.city},${forecast.country}&appid=${config.apiKey}&units=imperial`)
+  cardArrayLoaded = (forecast, data) => {
+    const card = (<Card key={forecast.id} id={forecast.id} weather={data} />)
+    this.setState({
+      cardArray: [...this.state.cardArray, card],
+      stateLoaded: !this.state.stateLoaded
+    }, console.log('setState() invoked'))
+  }
+
+  getForecast = async (forecast, callback) => {
+    const { apiConnection } = config
+    console.log('getForecast() invoked')
+    await axios.get(`${apiConnection.link}${forecast.city},${forecast.country}&appid=${apiConnection.key}&units=imperial`)
       .then(res => {
-        return res.data.weather
+        console.log('Response OK')
+        return callback(forecast, res.data)
       })
       .catch(error => {
         alert(`Error: ${error.message}`)
         console.log(error)
+        return error;
       })
   }
   
