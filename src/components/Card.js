@@ -4,7 +4,7 @@ const Card = (props) => {
   return (
     <div>
       <div className="card text-center" id="weather-card">
-        <img className="card-img-top" id="weather-img" src={require("./assets/img/sunny-day.jpg")} alt="sunny day" />
+        <img className="card-img-top" id="weather-img" src={require("../assets/img/sunny-day.jpg")} alt="sunny day" />
         <div className="card-img-overlay">
           <div className="temperature-display">
             <div>
@@ -22,7 +22,7 @@ const Card = (props) => {
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis, expedita enim. Iusto officia architecto id.
                 </p>
           <div className="card-footer">
-            <img id="form-icon" src={require("./assets/svg/plus.svg")} />
+            <img id="form-icon" src={require("../assets/svg/plus.svg")} />
           </div>
         </div>
       </div>

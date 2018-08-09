@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Card from './Card'
-
-const API_KEY = "089b23878d5b54ee96e22d90a3b0935f"
-const API_LINK = "https://api.openweathermap.org/data/2.5/weather?q="
+import config from '../config'
 
 class Weather extends Component {
   state = {
@@ -36,7 +34,7 @@ class Weather extends Component {
   }
 
   getForecast = (forecast) => {
-    axios.get(`${API_LINK}${forecast.city},${forecast.country}&appid=${API_KEY}&units=imperial`)
+    axios.get(`${config.apiLink}${forecast.city},${forecast.country}&appid=${config.apiKey}&units=imperial`)
       .then(res => {
         return res.data.weather
       })
