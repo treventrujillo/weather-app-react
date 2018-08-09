@@ -40,7 +40,6 @@ class Weather extends Component {
         return callback(forecast, res.data)
       })
       .catch(error => {
-        alert(`Error: ${error.message}`)
         console.log(error)
         return error;
       })
