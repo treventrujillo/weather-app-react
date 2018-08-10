@@ -23,14 +23,13 @@ class Weather extends Component {
   // Map forecasts from component state into forecast HTTP request method.
   mapForecasts() {
     const { forecasts, stateLoaded } = this.state
-    // Capture forecasts length and initialize iterator so when iterator is equal to forecasts length.
-    const forecastLength = forecasts.length;
+    // Initialize iterator so when iterator is equal to forecasts length state is loaded.
     let i = 0;
     forecasts.map(async (forecast) => {
       // Passing in the forecast and a callback method to the HTTP get method 'getForecast'.
-      await this.getForecast(forecast, this.cardArrayLoaded); i++;
+      await this.getForecast(forecast, this.cardArrayLoad); i++;
       // All the cards have been loaded and we can display the UI.
-      if (i === forecastLength) {
+      if (i === forecasts.length) {
           this.setState({ stateLoaded: !stateLoaded })
           console.log('State Loaded')
         }
@@ -38,7 +37,7 @@ class Weather extends Component {
   }
 
   // Constructs a Card component with forecast data and adds the card to the cardArray in the component's state.
-  cardArrayLoaded = (forecast, data) => {
+  cardArrayLoad = (forecast, data) => {
     const { cardArray } = this.state
     const card = (<Card key={forecast.id} id={forecast.id} weather={data} />)
     this.setState({
@@ -60,37 +59,6 @@ class Weather extends Component {
         console.log(error)
         return error;
       })
-  }
-
-  generateCarouselIndicators(cards) {
-    let elements = []
-    for (let i = 0; i < cards.length;) {
-      if (i === 0) {
-        elements.push(<li key={i} data-target="#carousel" data-slide-to="0" className="active"></li>)
-        i++;
-      }
-        elements.push(<li key={i} data-target="#carousel" data-slide-to={i} ></li>)
-        i++;
-    }
-    return elements
-  }
-
-  generateCards(cards) {
-    const { cardArray } = this.state
-    let elements = []
-    for (let i = 0; i < cards.length;) {
-      if (i === 0) {
-        elements.push(<div key={i} className="carousel-item active">
-          {cardArray[i]}
-        </div>)
-        i++;
-      }
-        elements.push(<div key={i} className="carousel-item">
-          {cardArray[i]}
-        </div>)
-        i++;
-    }
-    return elements
   }
   
   // If state isn't finished loading, UI will return Loading.
