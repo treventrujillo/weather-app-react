@@ -13,14 +13,14 @@ const Card = (props) => {
     const country = props.weather.sys.country
     const description = props.weather.weather[0].description
     return (
-      <div className="card" style={{height:'auto'}}>
+      <div id="card">
         <div className="card text-center" id="weather-card">
           <img className="card-img-top" id="weather-img" src={require("../assets/img/sunny-day.jpg")} alt="sunny day" />
           <div className="card-img-overlay">
-            <div className="temperature-display" style={{fontSize: '50px'}}>
+            <div className="temperature-display">
               <div>
                 {temperature}
-                <i id="temp-icon" className="wi wi-fahrenheit" style={{fontSize: '60px'}} />
+                <i id="temp-icon" className="wi wi-fahrenheit"/>
               </div>
             </div>
           </div>
@@ -32,7 +32,7 @@ const Card = (props) => {
               {description}
             </p>
             <div className="card-footer">
-              <img id="form-icon" src={require("../assets/svg/plus.svg")} />
+              <img id="form-icon" src={require("../assets/svg/plus.svg")} alt="add-new-forecast" />
             </div>
           </div>
         </div>

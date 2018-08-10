@@ -7,7 +7,7 @@ import './assets/css/App.css'
 class App extends Component {
   render() {
     return (
-      <div id="container" id="app-container">
+      <div id="app-container">
         <Weather />
       </div>
     );

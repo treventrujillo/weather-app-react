@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import config from '../config'
 
+import Carousel from 'nuka-carousel'
 import Card from './Card'
 
 class Weather extends Component {
@@ -9,7 +10,8 @@ class Weather extends Component {
     stateLoaded: false,
     cardArray: [],
     forecasts: [
-      { id: 1, city: 'denver', country: 'us' }
+      { id: 1, city: 'denver', country: 'us' },
+      { id: 2, city: 'seattle', country: 'us' }
     ]
   }
 
@@ -20,21 +22,28 @@ class Weather extends Component {
   
   // Map forecasts from component state into forecast HTTP request method.
   mapForecasts() {
-    const { forecasts } = this.state
+    const { forecasts, stateLoaded } = this.state
+    // Capture forecasts length and initialize iterator so when iterator is equal to forecasts length.
+    const forecastLength = forecasts.length;
+    let i = 0;
     forecasts.map(async (forecast) => {
       // Passing in the forecast and a callback method to the HTTP get method 'getForecast'.
-      await this.getForecast(forecast, this.cardArrayLoaded)
-    })
+      await this.getForecast(forecast, this.cardArrayLoaded); i++;
+      // All the cards have been loaded and we can display the UI.
+      if (i === forecastLength) {
+          this.setState({ stateLoaded: !stateLoaded })
+          console.log('State Loaded')
+        }
+      })
   }
 
   // Constructs a Card component with forecast data and adds the card to the cardArray in the component's state.
   cardArrayLoaded = (forecast, data) => {
+    const { cardArray } = this.state
     const card = (<Card key={forecast.id} id={forecast.id} weather={data} />)
     this.setState({
-      cardArray: [...this.state.cardArray, card],
-      // Switch stateLoaded from false to true so UI knows it can render the card.
-      stateLoaded: !this.state.stateLoaded
-    }, console.log('setState() invoked'))
+      cardArray: [...cardArray, card],
+    }, console.log('cardArray populated.'))
   }
 
   // Makes HTTP request to openweather api using forecast parameters and returning provided callback.
@@ -52,11 +61,42 @@ class Weather extends Component {
         return error;
       })
   }
+
+  generateCarouselIndicators(cards) {
+    let elements = []
+    for (let i = 0; i < cards.length;) {
+      if (i === 0) {
+        elements.push(<li key={i} data-target="#carousel" data-slide-to="0" className="active"></li>)
+        i++;
+      }
+        elements.push(<li key={i} data-target="#carousel" data-slide-to={i} ></li>)
+        i++;
+    }
+    return elements
+  }
+
+  generateCards(cards) {
+    const { cardArray } = this.state
+    let elements = []
+    for (let i = 0; i < cards.length;) {
+      if (i === 0) {
+        elements.push(<div key={i} className="carousel-item active">
+          {cardArray[i]}
+        </div>)
+        i++;
+      }
+        elements.push(<div key={i} className="carousel-item">
+          {cardArray[i]}
+        </div>)
+        i++;
+    }
+    return elements
+  }
   
   // If state isn't finished loading, UI will return Loading.
   // Once state has loaded, UI will render cards to DOM.
   render() {
-    const { stateLoaded } = this.state
+    const { stateLoaded, cardArray } = this.state
 
     if (!stateLoaded) {
       return (
@@ -66,8 +106,12 @@ class Weather extends Component {
       )
     } else {
       return (
-        <div className="weather-container">
-          {this.state.cardArray.map(card => { return card })}
+        <div className="weather-container container">
+          <Carousel
+            cellAlign='center'
+          >
+            {cardArray.map(x => {return x})}
+          </Carousel>
         </div>
       )
     }

@@ -1,3 +1,9 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
 #app-container {
   display: flex;
   justify-content: center;
@@ -13,11 +19,10 @@
 }
 
 .weather-container {
+  margin: 10px;
   padding: 10%;
-  display: flex;
-  justify-content: center;
   width: 100%;
-  background-color: #f8f8f8;
+  border-radius: 1%;
 }
 
 .card-footer {
@@ -39,13 +44,66 @@
   top: 4px;
 }
 
-@media screen and (max-width: 500px) {
-  #form-icon {
-    height: 10px;
-  }
+#card {
+  height: 60%;
+  width: 60%;
+  padding: 20px;
+  margin: auto;
+}
 
+.slider {
+  height: 100% !important;
+}
+
+/* Small devices */
+@media (min-width: 576px) {
+  #form-icon {
+    height: 15px;
+  }
   #temp-icon {
   position: relative;
   top: 3px;
+  font-size: 55px;
+  }
+  .weather-container {
+    height: 38em;
+    background-color: green;
+  }
+  .temperature-display {
+    font-size: 50px;
+  }
+  .card-title {
+    font-size: 30px;
+  }
+  .card-text {
+    font-size: 25px;
+  }
+}
+
+/* Medium devices (tablets) */
+@media (min-width: 768px) {
+  .weather-container {
+    height: 40em;
+    background-color: yellow;
+  }
+  .temperature-display {
+    font-size: 70px;
+  }
+  #temp-icon {
+    font-size: 80px;
+  }
+}
+
+/* Large devices */
+@media (min-width:992px) {
+  .weather-container {
+    height: 45em;
+    background-color: red;
+  }
+  .temperature-display {
+    font-size: 85px;
+  }
+  #temp-icon {
+    font-size: 95px;
   }
 }
